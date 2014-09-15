@@ -7,7 +7,8 @@ module SAXMachine
   end
 
   def parse(xml_text, on_error = nil, on_warning = nil)
-    if SAXMachine.handler == :ox
+    case SAXMachine.handler
+    when :ox
       Ox.sax_parse(
         SAXOxHandler.new(self, on_error, on_warning),
         StringIO.new(xml_text),
@@ -17,6 +18,9 @@ module SAXMachine
           skip: :skip_return,
         }
       )
+    when :oga
+      handler = SAXOgaHandler.new(self, xml_text, on_error, on_warning)
+      handler.parse {}
     else
       handler = SAXNokogiriHandler.new(self, on_error, on_warning)
       parser = Nokogiri::XML::SAX::Parser.new(handler)
