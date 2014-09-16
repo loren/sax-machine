@@ -19,8 +19,10 @@ module SAXMachine
         }
       )
     when :oga
-      handler = SAXOgaHandler.new(self, xml_text, on_error, on_warning)
-      handler.parse {}
+      Oga.sax_parse_xml(
+        SAXOgaHandler.new(self, on_error, on_warning),
+        xml_text
+      )
     else
       handler = SAXNokogiriHandler.new(self, on_error, on_warning)
       parser = Nokogiri::XML::SAX::Parser.new(handler)

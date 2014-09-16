@@ -11,5 +11,5 @@ group :development, :test do
   gem 'activerecord', '~> 4.1'
   gem 'nokogiri', '~> 1.6'
   gem 'ox', '>= 2.1.2', platforms: [:mri, :rbx]
-  gem 'oga'
+  gem 'oga', github: 'YorickPeterse/oga'
 end
